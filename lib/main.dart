@@ -29,7 +29,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Future<String?> _checkLoginStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await Future.delayed(Duration(seconds: 2));
+    // await Future.delayed(Duration(seconds: 2));
     return prefs.getString('employee_id'); // Devuelve el ID si hay sesión
   }
 

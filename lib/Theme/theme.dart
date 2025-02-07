@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  static Color verde() => const Color(0xFF00BC00);
+  static Color amarillo() => const Color(0xFFFFB916);
+  static Color rojo() => const Color(0xFFED3434);
+
   static Color primary(bool isDarkMode) =>
       isDarkMode ? const Color(0xFF001F70) : const Color(0xFF001F70);
   static Color background(bool isDarkMode) =>
@@ -22,8 +26,14 @@ class AppColors {
 }
 
 class AppIcons {
-  static Widget customIcon(BuildContext context, {double size = 200}) {
+  static Widget customIcon(BuildContext context,
+      {double size = 200, bool invertMode = false}) {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    // Invertimos el modo si `invertMode` es true
+    if (invertMode) {
+      isDarkMode = !isDarkMode;
+    }
 
     return Image.asset(
       isDarkMode ? 'assets/icons/logo_bco.png' : 'assets/icons/logo_azul.png',
@@ -141,16 +151,16 @@ ThemeData getAppTheme(bool isDarkMode) {
         fontWeight: FontWeight.bold,
       ),
 
-        // Estilo del contenido del diálogo
-        contentTextStyle: TextStyle(
-          color: AppColors.fuente(isDarkMode),
-          fontSize: 16,
-        ),
+      // Estilo del contenido del diálogo
+      contentTextStyle: TextStyle(
+        color: AppColors.fuente(isDarkMode),
+        fontSize: 16,
+      ),
 
-        // Forma del diálogo (borde redondeado)
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+      // Forma del diálogo (borde redondeado)
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
     ),
 
     // Configuración para los ExpansionTiles (listas desplegables)
@@ -179,10 +189,17 @@ ThemeData getAppTheme(bool isDarkMode) {
     listTileTheme: ListTileThemeData(
       selectedTileColor: AppColors.buttonText(isDarkMode),
       iconColor: AppColors.primary(isDarkMode),
-      textColor: AppColors.fuente(isDarkMode),
       selectedColor: AppColors.buttonText(isDarkMode),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
+      ),
+      titleTextStyle: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: AppColors.primary(
+            isDarkMode), // Asegúrate de que esto tenga el color correcto
+      ),
+      subtitleTextStyle: TextStyle(
+        color: AppColors.fuente(isDarkMode),
       ),
     ),
 
@@ -212,6 +229,5 @@ ThemeData getAppTheme(bool isDarkMode) {
         color: AppColors.buttonText(isDarkMode),
       ),
     ),
-
   );
 }

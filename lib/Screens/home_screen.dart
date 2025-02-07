@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gersa_regionales/Providers/theme_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Models/userModel.dart';
 import '../Config/api_config.dart';
 import '../services/api_service.dart';
 import '../Theme/theme.dart';
 import 'package:provider/provider.dart';
+import 'nuevaRevision_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -12,13 +14,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final String employeeNumber = User.id;
+  SharedPreferences? prefs;
+  String? employeeNumber;
+  String? employeeName;
   List<dynamic> revisiones = [];
   bool cargando = true;
 
   @override
   void initState() {
     super.initState();
+    initPrefs();
+  }
+
+  Future<void> initPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+    employeeNumber = prefs?.getString('employee_id');
+    employeeName = prefs?.getString('employee_name');
     dataInicio();
   }
 
@@ -61,39 +72,10 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  void nuevaRevision(BuildContext context) async {
-    final List roles = User.roles;
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Selecciona un rol'),
-          content: Text('¿Cómo quieres hacer tu revisión?'),
-          actions: [
-            Column(
-              children: roles.map((rol) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context, rol);
-                    },
-                    child: Text(rol),
-                  ),
-                );
-              }).toList(),
-            )
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Hola, ${User.nombre}')),
+      appBar: AppBar(title: Text('Hola, $employeeName')),
       body: cargando
           ? Center(child: CircularProgressIndicator()) // Indicador de carga
           : RefreshIndicator(
@@ -116,21 +98,33 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: revisiones.length,
                         itemBuilder: (context, index) {
                           final revision = revisiones[index];
-                          return Card(
+                          return Card(                            
                             elevation: 3,
                             margin: EdgeInsets.symmetric(vertical: 8),
                             child: ListTile(
-                              leading: Icon(Icons.history),
-                              title: Text('Sucursal: ${revision["sucursal"]}'),
+                              onTap: () {
+                                // TODO: Navegar a la pantalla de detalles
+                              },
+                              leading: Icon(
+                                Icons.circle,
+                                color: (revision["calificacion"] == "Verde")
+                                ? AppColors.verde()
+                                : (revision["calificacion"] == "Amarillo")
+                                ? AppColors.amarillo()
+                                : AppColors.rojo(),
+                              ),
+                              title: Text(revision["sucursal"]),
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  SizedBox(height: 5),
                                   Text('Fecha: ${revision["fecha"]}'),
                                   Text(
                                       'Calificación: ${revision["calificacion"]}'),
-                                  Text('Duración: ${revision["duracion"]} min'),
+                                  Text('Tipo: ${revision["tipo"]}'),
                                 ],
                               ),
+                              trailing: Icon(Icons.arrow_forward_outlined),
                             ),
                           );
                         },
@@ -138,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     ElevatedButton(
                         onPressed: () {
-                          nuevaRevision(context);
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => NuevaRevisionScreen()));
                         },
                         style: ElevatedButton.styleFrom(
                           padding: EdgeInsets.symmetric(
