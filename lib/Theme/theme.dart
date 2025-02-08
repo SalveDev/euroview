@@ -47,6 +47,8 @@ ThemeData getAppTheme(bool isDarkMode) {
     brightness: isDarkMode ? Brightness.dark : Brightness.light,
     primaryColor: AppColors.primary(isDarkMode),
     scaffoldBackgroundColor: AppColors.background(isDarkMode),
+    useMaterial3: true,
+
 
     // Tema para la AppBar (barra superior de la aplicación)
     appBarTheme: AppBarTheme(
@@ -163,6 +165,59 @@ ThemeData getAppTheme(bool isDarkMode) {
       ),
     ),
 
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all(
+            AppColors.primary(isDarkMode)), // Color del texto
+        textStyle: MaterialStateProperty.all(
+          const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold), // Tamaño y estilo del texto
+        ),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        padding: MaterialStateProperty.all<EdgeInsets>(
+          const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+        ),
+      ),
+    ),
+
+    dropdownMenuTheme: DropdownMenuThemeData(
+    textStyle: TextStyle(
+      color: AppColors.fuente(isDarkMode),
+    ),
+    menuStyle: MenuStyle(
+      backgroundColor: MaterialStateProperty.all(
+        AppColors.element(isDarkMode),
+      ),
+      surfaceTintColor: MaterialStateProperty.all(Colors.transparent),
+      shadowColor: MaterialStateProperty.all(Colors.black.withOpacity(0.1)),
+      shape: MaterialStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12), // Bordes redondeados
+        ),
+      ),
+      elevation: MaterialStateProperty.all(4), // Elevación para efecto de sombra
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      labelStyle: TextStyle(color: AppColors.fuente(isDarkMode)),
+      hintStyle: TextStyle(color: AppColors.placeholder(isDarkMode)),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: AppColors.primary(isDarkMode)),
+      ),
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: AppColors.placeholder(isDarkMode)),
+      ),
+    ),
+    ),
+
+    drawerTheme: DrawerThemeData(
+      backgroundColor: AppColors.sidebar(isDarkMode), // Color de fondo del menú
+    ),
+
     // Configuración para los ExpansionTiles (listas desplegables)
     expansionTileTheme: ExpansionTileThemeData(
       backgroundColor:
@@ -201,11 +256,6 @@ ThemeData getAppTheme(bool isDarkMode) {
       subtitleTextStyle: TextStyle(
         color: AppColors.fuente(isDarkMode),
       ),
-    ),
-
-    // Configuración para los Drawer (menú lateral)
-    drawerTheme: DrawerThemeData(
-      backgroundColor: AppColors.sidebar(isDarkMode), // Color de fondo del menú
     ),
 
     radioTheme: RadioThemeData(
