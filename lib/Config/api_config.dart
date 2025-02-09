@@ -9,4 +9,5 @@ class ApiConfig {
   static const String refresh = "$baseUrl/refresh";
   static const String sucursales = "$baseUrl/sucursales";
   static const String iniciarRevision = "$baseUrl/iniciarRevision";
+  static const String obtenerRevision = "$baseUrl/obtenerRevision";
 }

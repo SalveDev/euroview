@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gersa_regionales/Providers/theme_provider.dart';
+import 'package:gersa_regionales/Screens/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Models/userModel.dart';
 import '../Config/api_config.dart';
@@ -72,10 +73,30 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Future<void> logout(BuildContext context) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.clear(); // Borra todos los datos almacenados (sesión)
+
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (context) => LoginScreen()),
+  );
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Hola, $employeeName')),
+      appBar: AppBar(
+        title: Text('Hola, $employeeName'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              logout(context);
+            },
+          ),
+        ],
+      ),
       body: cargando
           ? Center(child: CircularProgressIndicator()) // Indicador de carga
           : RefreshIndicator(

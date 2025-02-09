@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:gersa_regionales/Config/api_config.dart';
 import 'package:gersa_regionales/Models/userModel.dart';
 import 'package:gersa_regionales/Providers/theme_provider.dart';
+import 'package:gersa_regionales/Screens/revision_screen.dart';
 import 'package:gersa_regionales/Theme/theme.dart';
 import 'package:gersa_regionales/services/api_service.dart';
 import 'package:latlong2/latlong.dart';
@@ -168,10 +169,19 @@ class _NuevaRevisionScreenState extends State<NuevaRevisionScreen> {
 
     if (response["success"] == true) {
       final data = response['data'];
-
+      print(data);
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => NuevaRevisionScreen()),
+        MaterialPageRoute(
+          builder: (context) => RevisionScreen(
+            nombreSucursal: _sucursales
+                .firstWhere((element) =>
+                    element['sucursal'].toString() == _selectedSucursal)
+                ['nombre'],
+            rol: _selectedRol,
+            uuid: data['uuid'],
+          ),
+        ),
         (Route<dynamic> route) => false,
       );
     } else {
