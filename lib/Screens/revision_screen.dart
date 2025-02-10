@@ -71,6 +71,10 @@ class _RevisionScreenState extends State<RevisionScreen> {
       cargando = true;
     });
 
+    print(Theme.of(context).brightness == Brightness.dark
+        ? 'Modo Oscuro'
+        : 'Modo Claro');
+
     final response = await ApiService().postRequest(
         ApiConfig.obtenerRevision, {"employee_number": employeeNumber});
 
@@ -90,7 +94,8 @@ class _RevisionScreenState extends State<RevisionScreen> {
   }
 
   Future<void> cancelarRevision() async {
-    final response = await ApiService().postRequest(ApiConfig.cancelarRevision, {
+    final response =
+        await ApiService().postRequest(ApiConfig.cancelarRevision, {
       "uuid": widget.uuid,
     });
 
@@ -192,9 +197,7 @@ class _RevisionScreenState extends State<RevisionScreen> {
             : ListView(
                 children: [
                   Card(
-                    color: AppColors.primary(
-                        Provider.of<ThemeProvider>(context).themeMode ==
-                            ThemeMode.dark),
+                    color: AppColors.primary(Theme.of(context).brightness == Brightness.dark),
                     margin: EdgeInsets.all(8.0),
                     child: Padding(
                       padding: EdgeInsets.all(16.0),
@@ -209,9 +212,8 @@ class _RevisionScreenState extends State<RevisionScreen> {
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.bold,
                                     color: AppColors.buttonText(
-                                        Provider.of<ThemeProvider>(context)
-                                                .themeMode ==
-                                            ThemeMode.dark)),
+                                        Theme.of(context).brightness ==
+                                            Brightness.dark)),
                               ),
                               SizedBox(width: 10.0),
                               Text(
@@ -297,14 +299,12 @@ class _RevisionScreenState extends State<RevisionScreen> {
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold,
                               color: AppColors.primary(
-                                  Provider.of<ThemeProvider>(context)
-                                          .themeMode ==
-                                      ThemeMode.dark),
+                                  Theme.of(context).brightness ==
+                                      Brightness.dark),
                             ),
                           ),
                           backgroundColor: AppColors.background(
-                              Provider.of<ThemeProvider>(context).themeMode ==
-                                  ThemeMode.dark),
+                              Theme.of(context).brightness == Brightness.dark),
                           children: entry.value
                               .map((pregunta) => _buildPregunta(pregunta))
                               .toList(),
@@ -342,7 +342,7 @@ class _RevisionScreenState extends State<RevisionScreen> {
           return AppColors.rojo();
         default:
           return AppColors.element(
-              Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark);
+              Theme.of(context).brightness == Brightness.dark);
       }
     }
 
@@ -418,9 +418,7 @@ class _RevisionScreenState extends State<RevisionScreen> {
                       value: optionDefault,
                       label: optionDefault,
                       style: MenuItemButton.styleFrom(
-                        foregroundColor: AppColors.placeholder(
-                            Provider.of<ThemeProvider>(context).themeMode ==
-                                ThemeMode.dark),
+                        foregroundColor: AppColors.placeholder(Theme.of(context).brightness == Brightness.dark),
                       )),
                   for (var opcion in opciones)
                     DropdownMenuEntry(value: opcion, label: opcion)
@@ -441,8 +439,8 @@ class _RevisionScreenState extends State<RevisionScreen> {
     }
   }
 
-  Widget _buildCard(String titulo, Widget contenido,
-      {Color color = Colors.white}) {
+  Widget _buildCard(String titulo, Widget contenido, {Color? color}) {
+    color ??= AppColors.element(Theme.of(context).brightness == Brightness.dark);
     return Card(
       color: color, // Aplicamos el color dinámico aquí
       margin: EdgeInsets.all(8.0),

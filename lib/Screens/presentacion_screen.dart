@@ -220,15 +220,11 @@ class _RevisionPresentacionScreenState
                             style: TextStyle(
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold,
-                              color: AppColors.primary(
-                                  Provider.of<ThemeProvider>(context)
-                                          .themeMode ==
-                                      ThemeMode.dark),
+                              color: AppColors.primary(Theme.of(context).brightness == Brightness.dark),
                             ),
                           ),
                           backgroundColor: AppColors.background(
-                              Provider.of<ThemeProvider>(context).themeMode ==
-                                  ThemeMode.dark),
+                              Theme.of(context).brightness == Brightness.dark),
                           children: entry.value
                               .map((pregunta) => _buildPregunta(pregunta))
                               .toList(),
@@ -259,9 +255,7 @@ class _RevisionPresentacionScreenState
               ? AppColors.amarillo()
               : (contenido as Text).data == 'Rojo'
                   ? AppColors.rojo()
-                  : AppColors.element(
-                      Provider.of<ThemeProvider>(context).themeMode ==
-                          ThemeMode.dark),
+                  : AppColors.element(Theme.of(context).brightness == Brightness.dark),
       child: Container(
         width: double
             .infinity, // Esto hace que la Card ocupe todo el ancho disponible

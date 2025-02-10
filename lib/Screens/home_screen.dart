@@ -102,8 +102,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ? Center(child: CircularProgressIndicator()) // Indicador de carga
           : RefreshIndicator(
               onRefresh:refresh, // Llamar a la función al hacer pull-to-refresh
-              color: AppColors.primary(Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark),
-              backgroundColor: AppColors.background(Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark),
+              color: AppColors.primary(Theme.of(context).brightness == Brightness.dark),
+              backgroundColor: AppColors.background(Theme.of(context).brightness == Brightness.dark),
               child: Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Column(

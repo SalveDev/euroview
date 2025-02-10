@@ -6,9 +6,9 @@ class AppColors {
   static Color rojo() => const Color(0xFFED3434);
 
   static Color primary(bool isDarkMode) =>
-      isDarkMode ? const Color(0xFF001F70) : const Color(0xFF001F70);
+      isDarkMode ? const Color(0xFF1F9EFF) : const Color(0xFF001F70);
   static Color background(bool isDarkMode) =>
-      isDarkMode ? const Color(0xFF303030) : const Color(0xFFF2F5F8);
+      isDarkMode ? const Color(0xFF141413) : const Color(0xFFF2F5F8);
   static Color fuente(bool isDarkMode) =>
       isDarkMode ? const Color(0xFFFFFFFF) : const Color(0xFF232222);
   static Color sidebar(bool isDarkMode) =>
@@ -166,8 +166,8 @@ ThemeData getAppTheme(bool isDarkMode) {
 
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all(
-            AppColors.primary(isDarkMode)), // Color del texto
+        foregroundColor:
+            MaterialStateProperty.all(AppColors.primary(isDarkMode)),
         textStyle: MaterialStateProperty.all(
           const TextStyle(
               fontSize: 18,
@@ -181,8 +181,8 @@ ThemeData getAppTheme(bool isDarkMode) {
         padding: MaterialStateProperty.all<EdgeInsets>(
           const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
         ),
-        backgroundColor: MaterialStateProperty.all(
-            AppColors.background(isDarkMode)), // Color de fondo del botón
+        backgroundColor:
+            MaterialStateProperty.all(AppColors.background(isDarkMode)),
       ),
     ),
 
@@ -215,7 +215,6 @@ ThemeData getAppTheme(bool isDarkMode) {
           borderSide: BorderSide(color: AppColors.placeholder(isDarkMode)),
         ),
       ),
-
     ),
 
     drawerTheme: DrawerThemeData(
@@ -290,5 +289,55 @@ ThemeData getAppTheme(bool isDarkMode) {
         color: AppColors.buttonText(isDarkMode),
       ),
     ),
+
+    datePickerTheme: DatePickerThemeData(
+      backgroundColor: AppColors.background(isDarkMode), // Fondo del DatePicker
+      surfaceTintColor: Colors.transparent, // Evita el overlay de Material 3
+      headerBackgroundColor:
+          AppColors.primary(isDarkMode), // Fondo del encabezado
+      headerForegroundColor:
+          AppColors.buttonText(isDarkMode), // Texto del encabezado
+      shadowColor: Colors.black.withOpacity(0.5), // Sombra del DatePicker
+      dividerColor:
+          AppColors.element(isDarkMode), // Color de la línea divisoria
+
+      // Estilo del título del selector (mes y año)
+      yearStyle: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        color: AppColors.fuente(isDarkMode),
+      ),
+      dayStyle: TextStyle(
+        fontSize: 16,
+        color: AppColors.fuente(isDarkMode),
+      ),
+
+      // 🔹 **Día seleccionado**
+      dayForegroundColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.selected)) {
+          return AppColors.buttonText(isDarkMode); // Texto del día seleccionado
+        }
+        return AppColors.fuente(isDarkMode); // Texto normal
+      }),
+      dayBackgroundColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.selected)) {
+          return AppColors.primary(isDarkMode); // Fondo del día seleccionado
+        }
+        return Colors.transparent; // Fondo normal
+      }),
+
+      // 🔹 **Día actual (hoy)**
+      todayForegroundColor:
+          MaterialStateProperty.all(AppColors.primary(isDarkMode)),
+      todayBackgroundColor:
+          MaterialStateProperty.all(AppColors.element(isDarkMode)),
+
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+
+      elevation: 8,
+    ),
+
   );
 }

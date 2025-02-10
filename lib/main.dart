@@ -86,7 +86,7 @@ class _MyAppState extends State<MyApp> {
 
         return MaterialApp(
           title: 'Comprador Misterioso',
-          themeMode: themeProvider.themeMode,
+          themeMode: ThemeMode.system,
           theme: getAppTheme(false),
           darkTheme: getAppTheme(true),
           home: homeScreen,

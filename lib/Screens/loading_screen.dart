@@ -9,7 +9,7 @@ class LoadingScreen extends StatelessWidget {
     return Scaffold(
       body: Container(
         color: AppColors.primary(
-            Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark),
+            Theme.of(context).brightness == Brightness.dark),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

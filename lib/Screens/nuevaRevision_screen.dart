@@ -217,11 +217,9 @@ class _NuevaRevisionScreenState extends State<NuevaRevisionScreen> {
           : RefreshIndicator(
               onRefresh: verificarGPSyUbicacion, // Hace que el refresh funcione
               color: AppColors.primary(
-                  Provider.of<ThemeProvider>(context).themeMode ==
-                      ThemeMode.dark),
+                  Theme.of(context).brightness == Brightness.dark),
               backgroundColor: AppColors.background(
-                  Provider.of<ThemeProvider>(context).themeMode ==
-                      ThemeMode.dark),
+                  Theme.of(context).brightness == Brightness.dark),
               child: ListView(
                 // Reemplazamos Column por ListView para hacer scroll
                 physics:
