@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:gersa_regionales/Config/api_config.dart';
-import 'package:gersa_regionales/Models/userModel.dart';
-import 'package:gersa_regionales/Providers/theme_provider.dart';
-import 'package:gersa_regionales/Screens/revision_screen.dart';
-import 'package:gersa_regionales/Theme/theme.dart';
-import 'package:gersa_regionales/services/api_service.dart';
+import 'package:gersa_regionwatch/Config/api_config.dart';
+import 'package:gersa_regionwatch/Models/userModel.dart';
+import 'package:gersa_regionwatch/Providers/theme_provider.dart';
+import 'package:gersa_regionwatch/Screens/revision_screen.dart';
+import 'package:gersa_regionwatch/Theme/theme.dart';
+import 'package:gersa_regionwatch/services/api_service.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -70,6 +71,19 @@ class _NuevaRevisionScreenState extends State<NuevaRevisionScreen> {
       return false;
     }
     return true;
+  }
+
+  Future<void> requestLocationPermission() async {
+    var status = await Permission.location.request();
+    if (status.isGranted) {
+      print("Permiso de ubicación concedido");
+    } else if (status.isDenied) {
+      print("Permiso de ubicación denegado");
+    } else if (status.isPermanentlyDenied) {
+      print(
+          "Permiso de ubicación denegado permanentemente. Abre la configuración para activarlo.");
+      openAppSettings();
+    }
   }
 
   Future<void> getLocation() async {
@@ -174,10 +188,8 @@ class _NuevaRevisionScreenState extends State<NuevaRevisionScreen> {
         context,
         MaterialPageRoute(
           builder: (context) => RevisionScreen(
-            nombreSucursal: _sucursales
-                .firstWhere((element) =>
-                    element['sucursal'].toString() == _selectedSucursal)
-                ['nombre'],
+            nombreSucursal: _sucursales.firstWhere((element) =>
+                element['sucursal'].toString() == _selectedSucursal)['nombre'],
             rol: _selectedRol,
             uuid: data['uuid'],
           ),
@@ -281,46 +293,44 @@ class _NuevaRevisionScreenState extends State<NuevaRevisionScreen> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  Container(
-                    height: 200,
-                    width: double.infinity,
-                    child: FlutterMap(
-                      options: MapOptions(
-                        center: LatLng(
-                          double.parse(_currentPosition!.latitude.toString()),
-                          double.parse(_currentPosition!.longitude.toString()),
-                        ),
-                        zoom: 15.0,
-                        interactiveFlags: InteractiveFlag.none,
-                      ),
-                      children: [
-                        TileLayer(
-                          urlTemplate:
-                              'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                          subdomains: ['a', 'b', 'c'],
-                        ),
-                        MarkerLayer(
-                          markers: [
-                            Marker(
-                              point: LatLng(
-                                double.parse(
-                                    _currentPosition!.latitude.toString()),
-                                double.parse(
-                                    _currentPosition!.longitude.toString()),
+                  _currentPosition != null
+                      ? Container(
+                          height: 200,
+                          width: double.infinity,
+                          child: FlutterMap(
+                            options: MapOptions(
+                              initialCenter: LatLng(
+                                _currentPosition!.latitude,
+                                _currentPosition!.longitude,
                               ),
-                              width: 80,
-                              height: 80,
-                              child: const Icon(
-                                Icons.location_pin,
-                                color: Colors.red,
-                                size: 40,
-                              ),
+                              initialZoom: 15,
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                            children: [
+                              TileLayer(
+                                urlTemplate:
+                                    'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                              ),
+                              MarkerLayer(
+                                markers: [
+                                  Marker(
+                                    point: LatLng(
+                                      _currentPosition!.latitude,
+                                      _currentPosition!.longitude,
+                                    ),
+                                    width: 80,
+                                    height: 80,
+                                    child: const Icon(
+                                      Icons.location_pin,
+                                      color: Colors.red,
+                                      size: 40,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                      : const SizedBox(),
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(

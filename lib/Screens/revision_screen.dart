@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:gersa_regionales/Config/api_config.dart';
-import 'package:gersa_regionales/Providers/theme_provider.dart';
-import 'package:gersa_regionales/Screens/home_screen.dart';
-import 'package:gersa_regionales/Theme/theme.dart';
-import 'package:gersa_regionales/services/api_service.dart';
-import 'package:gersa_regionales/utils/utils.dart';
+import 'package:gersa_regionwatch/Config/api_config.dart';
+import 'package:gersa_regionwatch/Providers/theme_provider.dart';
+import 'package:gersa_regionwatch/Screens/home_screen.dart';
+import 'package:gersa_regionwatch/Theme/theme.dart';
+import 'package:gersa_regionwatch/services/api_service.dart';
+import 'package:gersa_regionwatch/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

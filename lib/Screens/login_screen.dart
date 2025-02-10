@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:gersa_regionales/Config/api_config.dart';
+import 'package:gersa_regionwatch/Config/api_config.dart';
 import '../services/api_service.dart';
 import '../Theme/theme.dart';
 import 'home_screen.dart';

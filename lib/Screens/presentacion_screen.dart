@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:gersa_regionales/Config/api_config.dart';
-import 'package:gersa_regionales/Providers/theme_provider.dart';
-import 'package:gersa_regionales/Theme/theme.dart';
-import 'package:gersa_regionales/services/api_service.dart';
+import 'package:gersa_regionwatch/Config/api_config.dart';
+import 'package:gersa_regionwatch/Providers/theme_provider.dart';
+import 'package:gersa_regionwatch/Theme/theme.dart';
+import 'package:gersa_regionwatch/services/api_service.dart';
 import 'package:provider/provider.dart';
 import '../utils/utils.dart';
 
