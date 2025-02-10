@@ -11,4 +11,6 @@ class ApiConfig {
   static const String iniciarRevision = "$baseUrl/iniciarRevision";
   static const String obtenerRevision = "$baseUrl/obtenerRevision";
   static const String obtenerVieja = "$baseUrl/obtenerVieja";
+  static const String cancelarRevision = "$baseUrl/cancelarRevision";
+  static const String finalizarRevision = "$baseUrl/finalizarRevision";
 }

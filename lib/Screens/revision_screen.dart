@@ -8,6 +8,7 @@ import 'package:gersa_regionales/Providers/theme_provider.dart';
 import 'package:gersa_regionales/Screens/home_screen.dart';
 import 'package:gersa_regionales/Theme/theme.dart';
 import 'package:gersa_regionales/services/api_service.dart';
+import 'package:gersa_regionales/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -88,16 +89,54 @@ class _RevisionScreenState extends State<RevisionScreen> {
     }
   }
 
-  Future<void> enviarRespuestas() async {
-    final response = await ApiService().postRequest(
-        ApiConfig.obtenerRevision, {"employee_number": employeeNumber});
+  Future<void> cancelarRevision() async {
+    final response = await ApiService().postRequest(ApiConfig.cancelarRevision, {
+      "uuid": widget.uuid,
+    });
 
     if (response["success"] == true) {
-      final data = response['data'];
+      // borrar respuestas guardadas
+      prefs?.remove('respuestas_revision');
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+        (Route<dynamic> route) => false,
+      );
+    } else {
+      final server = response["error"];
+      mostrarDialogo(context, server["message"] ?? "Error desconocido");
+    }
+  }
 
-      setState(() {
-        _preguntas = data['preguntas'];
-      });
+  Future<void> enviarRespuestas() async {
+    final List<dynamic> respuestas = [];
+
+    for (var pregunta in _preguntas) {
+      final preguntaId = pregunta['columna'];
+      final respuesta = _respuestas[preguntaId];
+      if (respuesta != null) {
+        respuestas.add({
+          "columna": preguntaId,
+          "respuesta": respuesta,
+        });
+      }
+    }
+
+    final response =
+        await ApiService().postRequest(ApiConfig.finalizarRevision, {
+      "uuid": widget.uuid,
+      "respuestas": respuestas,
+    });
+
+    if (response["success"] == true) {
+      // borrar respuestas guardadas
+      prefs?.remove('respuestas_revision');
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+        (Route<dynamic> route) => false,
+      );
+    } else {
+      final server = response["error"];
+      mostrarDialogo(context, server["message"] ?? "Error desconocido");
     }
   }
 
@@ -136,12 +175,7 @@ class _RevisionScreenState extends State<RevisionScreen> {
                     TextButton(
                       child: Text('Sí'),
                       onPressed: () {
-                        // borrar respuestas guardadas
-                        prefs?.remove('respuestas_revision');
-                        Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
-                          (Route<dynamic> route) => false,
-                        );
+                        cancelarRevision();
                       },
                     ),
                   ],
@@ -284,7 +318,7 @@ class _RevisionScreenState extends State<RevisionScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print(_respuestas);
+          enviarRespuestas();
         },
         child: Icon(Icons.send),
       ),
