@@ -1,6 +1,6 @@
 class ApiConfig {
   // URL base del servidor
-  static const String domain = "127.0.0.1";
+  static const String domain = "gersadev.com";
   static const String baseUrl = "http://$domain/regionWatch";
 
   // Endpoints de la API

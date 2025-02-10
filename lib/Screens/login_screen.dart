@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     final response = await apiService.postRequest(ApiConfig.login, {
-      "employee_number": employeeNumber,
+      "employee_number": int.parse(employeeNumber),
       "password": password,
     });
 
@@ -54,7 +54,9 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     } else {
       setState(() {
-        mensaje = response["error"] ?? "Error desconocido";
+        print(response);
+        final server = response["error"];
+        mensaje = server["message"] ?? "Error desconocido";
       });
     }
   }
