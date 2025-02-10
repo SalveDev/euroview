@@ -164,31 +164,90 @@ class _RevisionScreenState extends State<RevisionScreen> {
                     margin: EdgeInsets.all(8.0),
                     child: Padding(
                       padding: EdgeInsets.all(16.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                      child: Column(
                         children: [
-                          Text(
-                            'UUID:',
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.buttonText(
-                                  Provider.of<ThemeProvider>(context)
-                                          .themeMode ==
-                                      ThemeMode.dark)
-                            ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'UUID:',
+                                style: TextStyle(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.buttonText(
+                                        Provider.of<ThemeProvider>(context)
+                                                .themeMode ==
+                                            ThemeMode.dark)),
+                              ),
+                              SizedBox(width: 10.0),
+                              Text(
+                                widget.uuid,
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.buttonText(
+                                      Provider.of<ThemeProvider>(context)
+                                              .themeMode ==
+                                          ThemeMode.dark),
+                                ),
+                              ),
+                            ],
                           ),
-                          SizedBox(width: 10.0),
-                          Text(
-                            widget.uuid,
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.buttonText(
-                                  Provider.of<ThemeProvider>(context)
-                                          .themeMode ==
-                                      ThemeMode.dark),
-                            ),
+                          SizedBox(height: 10.0),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Nombre de la Sucursal:',
+                                style: TextStyle(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.buttonText(
+                                        Provider.of<ThemeProvider>(context)
+                                                .themeMode ==
+                                            ThemeMode.dark)),
+                              ),
+                              SizedBox(width: 10.0),
+                              Text(
+                                widget.nombreSucursal,
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.buttonText(
+                                      Provider.of<ThemeProvider>(context)
+                                              .themeMode ==
+                                          ThemeMode.dark),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10.0),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Rol:',
+                                style: TextStyle(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.buttonText(
+                                        Provider.of<ThemeProvider>(context)
+                                                .themeMode ==
+                                            ThemeMode.dark)),
+                              ),
+                              SizedBox(width: 10.0),
+                              Text(
+                                widget.rol,
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.buttonText(
+                                      Provider.of<ThemeProvider>(context)
+                                              .themeMode ==
+                                          ThemeMode.dark),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),

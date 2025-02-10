@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gersa_regionales/Providers/theme_provider.dart';
 import 'package:gersa_regionales/Screens/login_screen.dart';
+import 'package:gersa_regionales/Screens/presentacion_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Models/userModel.dart';
 import '../Config/api_config.dart';
@@ -124,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             margin: EdgeInsets.symmetric(vertical: 8),
                             child: ListTile(
                               onTap: () {
-                                // TODO: Navegar a la pantalla de detalles
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => RevisionPresentacionScreen(uuid: revision["uuid"])));
                               },
                               leading: Icon(
                                 Icons.circle,
