@@ -360,9 +360,6 @@ class _RevisionScreenState extends State<RevisionScreen> {
             maxLines: null, // Permite múltiples líneas
             keyboardType:
                 TextInputType.multiline, // Habilita teclado de múltiples líneas
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(250),
-            ],
             onChanged: (value) {
               setState(() {
                 _respuestas[preguntaId] = value;
