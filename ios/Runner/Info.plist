@@ -51,8 +51,5 @@
 		<string>Esta aplicación necesita acceso a la ubicación mientras está en uso.</string>
 		<key>NSLocationAlwaysUsageDescription</key>
 		<string>Esta aplicación necesita acceso a la ubicación incluso en segundo plano.</string>
-
-		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-		<string>Esta aplicación utiliza su ubicación para mostrar tiendas cercanas al usuario.</string>	
 	</dict>
 </plist>
