@@ -76,14 +76,14 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 20),
               TextField(
-                // controller: employeeNumberController,
-                controller: employeeNumberController..text = 'edison.henao',
+                controller: employeeNumberController,
+                // controller: employeeNumberController..text = 'edison.henao',
                 decoration: InputDecoration(labelText: 'Usuario'),
                 keyboardType: TextInputType.text,
               ),
               TextField(
-                // controller: passwordController,
-                controller: passwordController..text = 'Jero8846',
+                controller: passwordController,
+                // controller: passwordController..text = 'Jero8846',
                 decoration: InputDecoration(labelText: 'Contraseña'),
                 obscureText: true,
               ),
