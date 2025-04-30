@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:gersa_regionwatch/Config/api_config.dart';
-import 'package:gersa_regionwatch/Providers/theme_provider.dart';
-import 'package:gersa_regionwatch/Theme/theme.dart';
-import 'package:gersa_regionwatch/services/api_service.dart';
+import 'package:euro_euroview/Config/api_config.dart';
+import 'package:euro_euroview/Providers/theme_provider.dart';
+import 'package:euro_euroview/Theme/theme.dart';
+import 'package:euro_euroview/services/api_service.dart';
 import 'package:provider/provider.dart';
 import '../utils/utils.dart';
 
@@ -167,7 +167,7 @@ class _RevisionPresentacionScreenState
                               ),
                               SizedBox(width: 10.0),
                               Text(
-                                formatearFecha(revReg[0]['Fecha']),
+                                formatearFecha(revReg[0]['FechaHora']),
                                 style: TextStyle(
                                   fontSize: 12.0,
                                   fontWeight: FontWeight.bold,

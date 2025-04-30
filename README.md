@@ -1,4 +1,4 @@
-# gersa_regionales
+# euro_regionales
 
 A new Flutter project.
 

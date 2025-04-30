@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gersa_regionwatch/Providers/theme_provider.dart';
-import 'package:gersa_regionwatch/Screens/login_screen.dart';
-import 'package:gersa_regionwatch/Screens/presentacion_screen.dart';
+import 'package:euro_euroview/Providers/theme_provider.dart';
+import 'package:euro_euroview/Screens/login_screen.dart';
+import 'package:euro_euroview/Screens/presentacion_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Models/userModel.dart';
 import '../Config/api_config.dart';

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:gersa_regionwatch/Config/api_config.dart';
-import 'package:gersa_regionwatch/Models/userModel.dart';
-import 'package:gersa_regionwatch/Providers/theme_provider.dart';
-import 'package:gersa_regionwatch/Screens/revision_screen.dart';
-import 'package:gersa_regionwatch/Theme/theme.dart';
-import 'package:gersa_regionwatch/services/api_service.dart';
+import 'package:euro_euroview/Config/api_config.dart';
+import 'package:euro_euroview/Models/userModel.dart';
+import 'package:euro_euroview/Providers/theme_provider.dart';
+import 'package:euro_euroview/Screens/revision_screen.dart';
+import 'package:euro_euroview/Theme/theme.dart';
+import 'package:euro_euroview/services/api_service.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +26,7 @@ class _NuevaRevisionScreenState extends State<NuevaRevisionScreen> {
   bool cargando = true;
   SharedPreferences? prefs;
   String? employeeNumber;
+  String? employeeName;
 
   @override
   void initState() {
@@ -36,6 +37,7 @@ class _NuevaRevisionScreenState extends State<NuevaRevisionScreen> {
   Future<void> initPrefs() async {
     prefs = await SharedPreferences.getInstance();
     employeeNumber = prefs?.getString('employee_id');
+    employeeName = prefs?.getString('employee_name');
     verificarGPSyUbicacion();
   }
 
@@ -145,7 +147,7 @@ class _NuevaRevisionScreenState extends State<NuevaRevisionScreen> {
     final response = await ApiService().postRequest(ApiConfig.sucursales, {
       "latitud": _currentPosition!.latitude,
       "longitud": _currentPosition!.longitude,
-      "employee_number": employeeNumber
+      "employee_number": employeeName
     });
 
     if (response["success"] == true) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gersa_regionwatch/Providers/theme_provider.dart';
-import 'package:gersa_regionwatch/Theme/theme.dart';
+import 'package:euro_euroview/Providers/theme_provider.dart';
+import 'package:euro_euroview/Theme/theme.dart';
 import 'package:provider/provider.dart';
 
 class LoadingScreen extends StatelessWidget {

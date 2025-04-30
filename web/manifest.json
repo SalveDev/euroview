@@ -1,6 +1,6 @@
 {
-    "name": "gersa_regionales",
-    "short_name": "gersa_regionales",
+    "name": "euro_regionales",
+    "short_name": "euro_regionales",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

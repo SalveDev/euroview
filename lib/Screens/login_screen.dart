@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:gersa_regionwatch/Config/api_config.dart';
+import 'package:euro_euroview/Config/api_config.dart';
 import '../services/api_service.dart';
 import '../Theme/theme.dart';
 import 'home_screen.dart';
@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     final response = await apiService.postRequest(ApiConfig.login, {
-      "employee_number": int.parse(employeeNumber),
+      "employee_number": employeeNumber,
       "password": password,
     });
 
@@ -76,12 +76,14 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 20),
               TextField(
-                controller: employeeNumberController,
-                decoration: InputDecoration(labelText: 'Número de empleado'),
-                keyboardType: TextInputType.number,
+                // controller: employeeNumberController,
+                controller: employeeNumberController..text = 'edison.henao',
+                decoration: InputDecoration(labelText: 'Usuario'),
+                keyboardType: TextInputType.text,
               ),
               TextField(
-                controller: passwordController,
+                // controller: passwordController,
+                controller: passwordController..text = 'Jero8846',
                 decoration: InputDecoration(labelText: 'Contraseña'),
                 obscureText: true,
               ),

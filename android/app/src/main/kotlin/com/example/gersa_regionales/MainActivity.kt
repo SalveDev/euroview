@@ -1,4 +1,4 @@
-package com.example.gersa_regionales
+package com.example.euro_regionales
 
 import io.flutter.embedding.android.FlutterActivity
 

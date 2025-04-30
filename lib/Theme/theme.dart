@@ -5,24 +5,45 @@ class AppColors {
   static Color amarillo() => const Color(0xFFFFB916);
   static Color rojo() => const Color(0xFFED3434);
 
-  static Color primary(bool isDarkMode) =>
-      isDarkMode ? const Color(0xFF1F9EFF) : const Color(0xFF001F70);
-  static Color background(bool isDarkMode) =>
-      isDarkMode ? const Color(0xFF141413) : const Color(0xFFF2F5F8);
-  static Color fuente(bool isDarkMode) =>
-      isDarkMode ? const Color(0xFFFFFFFF) : const Color(0xFF232222);
-  static Color sidebar(bool isDarkMode) =>
-      isDarkMode ? const Color(0xFF212121) : const Color(0xFFC9D5E3);
-  static Color element(bool isDarkMode) =>
-      isDarkMode ? const Color(0xFF424242) : const Color(0xFFE4EAF1);
-  static Color floating(bool isDarkMode) =>
-      isDarkMode ? const Color(0xFF424242) : const Color(0xFF233243);
-  static Color placeholder(bool isDarkMode) =>
-      isDarkMode ? const Color(0xFFC7C6C6) : const Color(0xFF575757);
-  static Color shadows(bool isDarkMode) =>
-      isDarkMode ? const Color(0xFF000000) : const Color(0xFF212121);
-  static Color buttonText(bool isDarkMode) =>
-      isDarkMode ? const Color(0xFFFFFFFF) : const Color(0xFFFFFFFF);
+  static Color primary(bool isDarkMode) => isDarkMode
+      ? const Color.fromARGB(255, 224, 210, 233)
+      : const Color(0xFF2A193D); // morado base o más claro para dark
+
+  static Color secondary(bool isDarkMode) => isDarkMode
+      ? const Color(0xFFFF5E6C)
+      : const Color(0xFFDD273A); // rojo vibrante o más suave
+
+  static Color background(bool isDarkMode) => isDarkMode
+      ? const Color(0xFF1E1B23)
+      : const Color(0xFFF8F5FA); // gris muy oscuro vs. off-white con tinte lila
+
+  static Color fuente(bool isDarkMode) => isDarkMode
+      ? const Color(0xFFF5F5F5)
+      : const Color(0xFF2A193D); // texto blanco vs. texto morado oscuro
+
+  static Color sidebar(bool isDarkMode) => isDarkMode
+      ? const Color(0xFF2B2234)
+      : const Color(0xFFE9D7F2); // lavanda para light, morado apagado para dark
+
+  static Color element(bool isDarkMode) => isDarkMode
+      ? const Color(0xFF3C2C49)
+      : const Color(0xFFF1E7F6); // contenedores y cards
+
+  static Color floating(bool isDarkMode) => isDarkMode
+      ? const Color(0xFF582C4D)
+      : const Color(0xFFDD273A); // botón flotante con rojo o vino
+
+  static Color placeholder(bool isDarkMode) => isDarkMode
+      ? const Color(0xFFAAAAAA)
+      : const Color(0xFF7D7585); // grises suaves
+
+  static Color shadows(bool isDarkMode) => isDarkMode
+      ? const Color(0xFF000000)
+      : const Color(0x22000000); // sombra negra opaca
+
+  static Color buttonText(bool isDarkMode) => isDarkMode
+      ? const Color(0xFF2A193D)
+      : const Color(0xFFFFFFFF); // siempre blanco
 }
 
 class AppIcons {
@@ -36,7 +57,7 @@ class AppIcons {
     }
 
     return Image.asset(
-      isDarkMode ? 'assets/icons/logo_bco.png' : 'assets/icons/logo_azul.png',
+      'assets/icons/euroviewLogo.png',
       width: size,
     );
   }
@@ -338,6 +359,5 @@ ThemeData getAppTheme(bool isDarkMode) {
 
       elevation: 8,
     ),
-
   );
 }
