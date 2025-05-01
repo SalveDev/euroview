@@ -1,6 +1,6 @@
 class ApiConfig {
   // URL base del servidor
-  static const String domain = "localhost";
+  static const String domain = "euro-dev.com";
   static const String baseUrl = "http://$domain/euroView";
 
   // Endpoints de la API
