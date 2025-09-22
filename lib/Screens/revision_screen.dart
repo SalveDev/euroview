@@ -28,6 +28,7 @@ class _RevisionScreenState extends State<RevisionScreen> {
   List<dynamic> _preguntas = [];
   bool cargando = true;
   Map<String, dynamic> _respuestas = {};
+  Map<String, TextEditingController> _controllers = {};
   SharedPreferences? prefs;
   String? employeeNumber;
 
@@ -146,6 +147,13 @@ class _RevisionScreenState extends State<RevisionScreen> {
   }
 
   @override
+  void dispose() {
+    for (var controller in _controllers.values) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     Map<String, List<dynamic>> preguntasPorSeccion = {};
 
@@ -197,7 +205,8 @@ class _RevisionScreenState extends State<RevisionScreen> {
             : ListView(
                 children: [
                   Card(
-                    color: AppColors.primary(Theme.of(context).brightness == Brightness.dark),
+                    color: AppColors.primary(
+                        Theme.of(context).brightness == Brightness.dark),
                     margin: EdgeInsets.all(8.0),
                     child: Padding(
                       padding: EdgeInsets.all(16.0),
@@ -348,23 +357,27 @@ class _RevisionScreenState extends State<RevisionScreen> {
 
     switch (tipoPregunta) {
       case 'text':
+        if (!_controllers.containsKey(preguntaId)) {
+          _controllers[preguntaId] = TextEditingController(
+            text: _respuestas[preguntaId] ?? '',
+          );
+        }
+
         return _buildCard(
           preguntaTexto,
           TextField(
+            controller: _controllers[preguntaId],
             decoration: InputDecoration(
               hintText: 'Escribe tu respuesta aquí',
-              border:
-                  OutlineInputBorder(), // Opcional: añade un borde para mejor visualización
+              border: OutlineInputBorder(),
             ),
-            style: TextStyle(color: Colors.black),
-            maxLines: null, // Permite múltiples líneas
-            keyboardType:
-                TextInputType.multiline, // Habilita teclado de múltiples líneas
+            maxLines: null,
+            keyboardType: TextInputType.multiline,
             onChanged: (value) {
               setState(() {
                 _respuestas[preguntaId] = value;
               });
-              guardarRespuestasEnPrefs(); // Guardar en SharedPreferences
+              guardarRespuestasEnPrefs();
             },
           ),
         );
@@ -415,7 +428,8 @@ class _RevisionScreenState extends State<RevisionScreen> {
                       value: optionDefault,
                       label: optionDefault,
                       style: MenuItemButton.styleFrom(
-                        foregroundColor: AppColors.placeholder(Theme.of(context).brightness == Brightness.dark),
+                        foregroundColor: AppColors.placeholder(
+                            Theme.of(context).brightness == Brightness.dark),
                       )),
                   for (var opcion in opciones)
                     DropdownMenuEntry(value: opcion, label: opcion)
@@ -437,7 +451,8 @@ class _RevisionScreenState extends State<RevisionScreen> {
   }
 
   Widget _buildCard(String titulo, Widget contenido, {Color? color}) {
-    color ??= AppColors.element(Theme.of(context).brightness == Brightness.dark);
+    color ??=
+        AppColors.element(Theme.of(context).brightness == Brightness.dark);
     return Card(
       color: color, // Aplicamos el color dinámico aquí
       margin: EdgeInsets.all(8.0),
